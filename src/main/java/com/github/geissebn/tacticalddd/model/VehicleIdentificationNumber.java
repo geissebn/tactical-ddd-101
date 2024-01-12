@@ -9,4 +9,5 @@ import java.util.UUID;
 public class VehicleIdentificationNumber {
 
     @NonNull UUID value;
+
 }

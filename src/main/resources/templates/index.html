@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <title>Car Overview</title>
+</head>
+<body>
+<h1>Car Overview</h1>
+
+<a class="btn btn-primary" href="./build">Build new Car</a>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <td scope="col">VIN</td>
+        <td scope="col">Production Date</td>
+        <td scope="col">Engine State</td>
+        <td scope="col">Actions</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${cars}">
+        <!--@thymesVar id="car" type="com.github.geissebn.tacticalddd.model.Car"-->
+        <td scope="row" th:text="${car.vin.value}"></td>
+        <td th:text="${car.productionDate.value}"></td>
+        <td th:text="${car.engineState}"></td>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-primary" th:href="|/action?action=start&vin=${car.vin.value}|">Start</a>
+                <a class="btn btn-primary" th:href="|/action?action=stop&vin=${car.vin.value}|">Stop</a>
+                <a class="btn btn-danger" th:href="|/action?action=demolish&vin=${car.vin.value}|">Demolish</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+Watch with <a href="https://www.hivemq.com/demos/websocket-client/?">HiveMQ Websocket Client</a>
+</body>
+</html>

@@ -1,9 +1,9 @@
 package com.github.geissebn.tacticalddd
 
-import com.github.geissebn.tacticalddd.model.Car
-import com.github.geissebn.tacticalddd.model.EngineState
-import com.github.geissebn.tacticalddd.model.ProductionDate
-import com.github.geissebn.tacticalddd.model.VehicleIdentificationNumber
+import com.github.geissebn.tacticalddd.domain.Car
+import com.github.geissebn.tacticalddd.domain.EngineState
+import com.github.geissebn.tacticalddd.domain.ProductionDate
+import com.github.geissebn.tacticalddd.domain.VehicleIdentificationNumber
 
 import java.time.Instant
 

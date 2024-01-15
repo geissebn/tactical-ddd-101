@@ -2,7 +2,7 @@ package com.github.geissebn.tacticalddd.adapter.primary.mqtt;
 
 import com.github.geissebn.tacticalddd.application.CarApplicationService;
 import com.github.geissebn.tacticalddd.application.NoSuchCarException;
-import com.github.geissebn.tacticalddd.model.VehicleIdentificationNumber;
+import com.github.geissebn.tacticalddd.domain.VehicleIdentificationNumber;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

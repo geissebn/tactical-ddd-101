@@ -32,7 +32,7 @@
             </thead>
             <tbody class="divide-y divide-gray-200">
             <tr th:each="car : ${cars}">
-                <!--@thymesVar id="car" type="com.github.geissebn.tacticalddd.model.Car"-->
+                <!--@thymesVar id="car" type="com.github.geissebn.tacticalddd.domain.Car"-->
                 <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
                     th:text="${car.vin.value}"></td>
                 <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500"

@@ -1,6 +1,6 @@
 package com.github.geissebn.tacticalddd.metrics;
 
-import com.github.geissebn.tacticalddd.model.CarEvent;
+import com.github.geissebn.tacticalddd.domain.CarEvent;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

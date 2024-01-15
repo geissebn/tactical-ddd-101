@@ -2,8 +2,8 @@ package com.github.geissebn.tacticalddd.application
 
 import com.github.geissebn.tacticalddd.Fixtures
 import com.github.geissebn.tacticalddd.metrics.CarMetrics
-import com.github.geissebn.tacticalddd.model.CarEvent
-import com.github.geissebn.tacticalddd.model.EngineState
+import com.github.geissebn.tacticalddd.domain.CarEvent
+import com.github.geissebn.tacticalddd.domain.EngineState
 import spock.lang.Specification
 import spock.lang.Subject
 

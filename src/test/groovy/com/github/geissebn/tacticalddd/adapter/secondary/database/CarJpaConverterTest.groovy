@@ -1,7 +1,7 @@
 package com.github.geissebn.tacticalddd.adapter.secondary.database
 
 import com.github.geissebn.tacticalddd.Fixtures
-import com.github.geissebn.tacticalddd.model.EngineState
+import com.github.geissebn.tacticalddd.domain.EngineState
 import spock.lang.Specification
 import spock.lang.Subject
 

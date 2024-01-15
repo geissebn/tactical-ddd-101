@@ -1,6 +1,6 @@
 package com.github.geissebn.tacticalddd.application;
 
-import com.github.geissebn.tacticalddd.model.VehicleIdentificationNumber;
+import com.github.geissebn.tacticalddd.domain.VehicleIdentificationNumber;
 
 public class NoSuchCarException extends Exception {
     public NoSuchCarException(VehicleIdentificationNumber vin) {

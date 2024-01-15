@@ -3,7 +3,7 @@ package com.github.geissebn.tacticalddd.adapter.primary.http;
 import com.github.geissebn.tacticalddd.application.CarApplicationService;
 import com.github.geissebn.tacticalddd.application.CarRepository;
 import com.github.geissebn.tacticalddd.application.NoSuchCarException;
-import com.github.geissebn.tacticalddd.model.VehicleIdentificationNumber;
+import com.github.geissebn.tacticalddd.domain.VehicleIdentificationNumber;
 import com.github.geissebn.tacticalddd.util.MdcUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

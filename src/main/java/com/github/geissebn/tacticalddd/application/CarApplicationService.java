@@ -1,10 +1,10 @@
 package com.github.geissebn.tacticalddd.application;
 
 import com.github.geissebn.tacticalddd.metrics.CarMetrics;
-import com.github.geissebn.tacticalddd.model.Car;
-import com.github.geissebn.tacticalddd.model.CarEvent;
-import com.github.geissebn.tacticalddd.model.ProductionDate;
-import com.github.geissebn.tacticalddd.model.VehicleIdentificationNumber;
+import com.github.geissebn.tacticalddd.domain.Car;
+import com.github.geissebn.tacticalddd.domain.CarEvent;
+import com.github.geissebn.tacticalddd.domain.ProductionDate;
+import com.github.geissebn.tacticalddd.domain.VehicleIdentificationNumber;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;

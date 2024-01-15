@@ -1,4 +1,4 @@
-package com.github.geissebn.tacticalddd.model;
+package com.github.geissebn.tacticalddd.domain;
 
 import lombok.Data;
 import lombok.NonNull;

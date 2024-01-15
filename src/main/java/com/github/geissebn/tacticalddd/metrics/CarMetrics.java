@@ -1,7 +1,7 @@
 package com.github.geissebn.tacticalddd.metrics;
 
 
-import com.github.geissebn.tacticalddd.model.CarEvent;
+import com.github.geissebn.tacticalddd.domain.CarEvent;
 
 public interface CarMetrics {
 

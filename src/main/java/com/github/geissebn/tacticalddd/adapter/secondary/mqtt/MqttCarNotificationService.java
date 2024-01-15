@@ -2,8 +2,8 @@ package com.github.geissebn.tacticalddd.adapter.secondary.mqtt;
 
 
 import com.github.geissebn.tacticalddd.application.CarNotificationService;
-import com.github.geissebn.tacticalddd.model.CarEvent;
-import com.github.geissebn.tacticalddd.model.VehicleIdentificationNumber;
+import com.github.geissebn.tacticalddd.domain.CarEvent;
+import com.github.geissebn.tacticalddd.domain.VehicleIdentificationNumber;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.IMqttClient;

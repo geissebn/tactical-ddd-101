@@ -1,7 +1,7 @@
 package com.github.geissebn.tacticalddd.application;
 
-import com.github.geissebn.tacticalddd.model.CarEvent;
-import com.github.geissebn.tacticalddd.model.VehicleIdentificationNumber;
+import com.github.geissebn.tacticalddd.domain.CarEvent;
+import com.github.geissebn.tacticalddd.domain.VehicleIdentificationNumber;
 
 public interface CarNotificationService {
 

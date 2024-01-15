@@ -1,4 +1,4 @@
-package com.github.geissebn.tacticalddd.model
+package com.github.geissebn.tacticalddd.domain
 
 import com.github.geissebn.tacticalddd.Fixtures
 import spock.lang.Specification

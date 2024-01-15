@@ -1,8 +1,8 @@
 package com.github.geissebn.tacticalddd.adapter.secondary.database;
 
 import com.github.geissebn.tacticalddd.application.CarRepository;
-import com.github.geissebn.tacticalddd.model.Car;
-import com.github.geissebn.tacticalddd.model.VehicleIdentificationNumber;
+import com.github.geissebn.tacticalddd.domain.Car;
+import com.github.geissebn.tacticalddd.domain.VehicleIdentificationNumber;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

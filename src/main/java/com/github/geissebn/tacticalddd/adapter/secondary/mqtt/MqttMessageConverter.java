@@ -1,6 +1,6 @@
 package com.github.geissebn.tacticalddd.adapter.secondary.mqtt;
 
-import com.github.geissebn.tacticalddd.model.CarEvent;
+import com.github.geissebn.tacticalddd.domain.CarEvent;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.stereotype.Component;
 

@@ -4,6 +4,7 @@ import com.github.geissebn.tacticalddd.application.CarApplicationService;
 import com.github.geissebn.tacticalddd.application.CarRepository;
 import com.github.geissebn.tacticalddd.application.NoSuchCarException;
 import com.github.geissebn.tacticalddd.model.VehicleIdentificationNumber;
+import com.github.geissebn.tacticalddd.util.MdcUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
+
+import static com.github.geissebn.tacticalddd.util.MdcUtil.inSubMdc;
 
 @Service
 @Controller
@@ -30,24 +33,26 @@ public class CarController {
 
     @GetMapping("build")
     public String build() {
-        carApplicationService.buildNewCar();
+        inSubMdc(carApplicationService::buildNewCar);
         return "redirect:/";
     }
 
     @GetMapping("action")
     public String action(@RequestParam String action, @RequestParam("vin") UUID vinRaw) throws NoSuchCarException {
-        var vin = new VehicleIdentificationNumber(vinRaw);
-        switch (action) {
-            case "start":
-                carApplicationService.startCar(vin);
-                break;
-            case "stop":
-                carApplicationService.stopCar(vin);
-                break;
-            case "demolish":
-                carApplicationService.demolishCar(vin);
-                break;
-        }
+        inSubMdc(MdcUtil.MdcKey.VIN, vinRaw, () -> {
+            var vin = new VehicleIdentificationNumber(vinRaw);
+            switch (action) {
+                case "start":
+                    carApplicationService.startCar(vin);
+                    break;
+                case "stop":
+                    carApplicationService.stopCar(vin);
+                    break;
+                case "demolish":
+                    carApplicationService.demolishCar(vin);
+                    break;
+            }
+        });
         return "redirect:/";
     }
 

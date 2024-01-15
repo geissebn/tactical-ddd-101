@@ -11,10 +11,14 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+
+import static com.github.geissebn.tacticalddd.util.MdcUtil.MdcKey;
+import static com.github.geissebn.tacticalddd.util.MdcUtil.inSubMdc;
 
 
 @Service
@@ -50,27 +54,32 @@ public class MqttCarListener {
     }
 
     private void handleMessage(String topic, MqttMessage message) {
+        inSubMdc(() -> {
+            MDC.put("mqtt.topic", topic);
+            LOG.info("Handling incoming MQTT message");
+            var splitted = topic.split("/");
+            var vinRaw = splitted[splitted.length - 1];
+            MDC.put(MdcKey.VIN, vinRaw);
 
-        var splitted = topic.split("/");
-        var vin = new VehicleIdentificationNumber(UUID.fromString(splitted[splitted.length - 1]));
-
-        try {
-            var action = new String(message.getPayload());
-            switch (action) {
-                case "start":
-                    applicationService.startCar(vin);
-                    break;
-                case "stop":
-                    applicationService.stopCar(vin);
-                    break;
-                case "demolish":
-                    applicationService.demolishCar(vin);
-                    break;
-                default:
-                    LOG.warn("unknown action {}", action);
+            try {
+                var vin = new VehicleIdentificationNumber(UUID.fromString(vinRaw));
+                var action = new String(message.getPayload());
+                switch (action) {
+                    case "start":
+                        applicationService.startCar(vin);
+                        break;
+                    case "stop":
+                        applicationService.stopCar(vin);
+                        break;
+                    case "demolish":
+                        applicationService.demolishCar(vin);
+                        break;
+                    default:
+                        LOG.warn("unknown action {}", action);
+                }
+            } catch (NoSuchCarException e) {
+                LOG.warn("unknown car", e);
             }
-        } catch (NoSuchCarException e) {
-            LOG.warn("unknown car", e);
-        }
+        });
     }
 }

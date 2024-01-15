@@ -1,6 +1,6 @@
 package com.github.geissebn.tacticalddd.adapter.secondary.mqtt
 
-import com.github.geissebn.tacticalddd.Fixtures
+
 import com.github.geissebn.tacticalddd.model.CarEvent
 import spock.lang.Specification
 import spock.lang.Subject

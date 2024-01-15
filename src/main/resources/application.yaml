@@ -1,0 +1,15 @@
+mqtt:
+  broker.url: 'tcp://broker.hivemq.com'
+  client.id: 'acme-application'
+  topic:
+    outbound: 'com/acme/car/event/$vin'
+    inbound: 'com/acme/car/command/#'
+
+spring:
+  jpa:
+    database: H2
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+  liquibase:
+    change-log: 'classpath:db/changelog.xml'

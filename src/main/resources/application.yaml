@@ -13,3 +13,5 @@ spring:
     open-in-view: false
   liquibase:
     change-log: 'classpath:db/changelog.xml'
+  thymeleaf:
+    cache: false

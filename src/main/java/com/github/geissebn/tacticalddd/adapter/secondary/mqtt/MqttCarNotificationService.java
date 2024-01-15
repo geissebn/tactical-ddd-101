@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 @Slf4j
-public class MqttCarNotificationService implements CarNotificationService {
+class MqttCarNotificationService implements CarNotificationService {
     private final IMqttClient mqttClient;
     private final MqttMessageConverter mqttMessageConverter;
     @Value("${mqtt.topic.outbound}")

@@ -4,8 +4,8 @@ import com.github.geissebn.tacticalddd.application.CarApplicationService;
 import com.github.geissebn.tacticalddd.application.CarRepository;
 import com.github.geissebn.tacticalddd.application.NoSuchCarException;
 import com.github.geissebn.tacticalddd.domain.VehicleIdentificationNumber;
-import com.github.geissebn.tacticalddd.util.MdcUtil;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
 
+import static com.github.geissebn.tacticalddd.util.MdcUtil.MdcKey;
 import static com.github.geissebn.tacticalddd.util.MdcUtil.inSubMdc;
 
 @Service
@@ -38,8 +39,9 @@ public class CarController {
     }
 
     @GetMapping("action")
-    public String action(@RequestParam String action, @RequestParam("vin") UUID vinRaw) throws NoSuchCarException {
-        inSubMdc(MdcUtil.MdcKey.VIN, vinRaw, () -> {
+    public String action(@RequestParam String action, @RequestParam("vin") UUID vinRaw) {
+        inSubMdc(() -> {
+            MDC.put(MdcKey.VIN, vinRaw.toString());
             var vin = new VehicleIdentificationNumber(vinRaw);
             switch (action) {
                 case "start":

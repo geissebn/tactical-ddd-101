@@ -14,7 +14,7 @@ import java.util.stream.StreamSupport;
 @Repository
 @RequiredArgsConstructor
 @Slf4j
-public class DatabaseCarRepository implements CarRepository {
+class DatabaseCarRepository implements CarRepository {
 
     final CarJpaRepository repository;
     final CarJpaConverter jpaConverter;

@@ -15,7 +15,7 @@ import java.time.Instant;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarJpa {
+class CarJpa {
     @Id
     String vin;
     Instant productionDate;

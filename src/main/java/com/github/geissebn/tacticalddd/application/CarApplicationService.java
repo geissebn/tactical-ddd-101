@@ -1,5 +1,6 @@
 package com.github.geissebn.tacticalddd.application;
 
+import com.github.geissebn.tacticalddd.metrics.CarMetrics;
 import com.github.geissebn.tacticalddd.model.Car;
 import com.github.geissebn.tacticalddd.model.CarEvent;
 import com.github.geissebn.tacticalddd.model.ProductionDate;
@@ -21,6 +22,7 @@ public class CarApplicationService {
 
     final CarRepository carRepository;
     final CarNotificationService carNotificationService;
+    final CarMetrics metrics;
 
     public Car buildNewCar() {
         var vin = new VehicleIdentificationNumber(UUID.randomUUID());
@@ -30,6 +32,7 @@ public class CarApplicationService {
         var car = Car.build(vin, prodDate);
         carRepository.save(car);
         carNotificationService.notify(vin, CarEvent.CREATED);
+        metrics.recordCarEvent(CarEvent.CREATED);
         return car;
     }
 
@@ -39,6 +42,7 @@ public class CarApplicationService {
             throw new NoSuchCarException(vin);
         }
         carNotificationService.notify(vin, CarEvent.DEMOLISHED);
+        metrics.recordCarEvent(CarEvent.DEMOLISHED);
     }
 
     public void startCar(VehicleIdentificationNumber vin) throws NoSuchCarException {
@@ -47,6 +51,7 @@ public class CarApplicationService {
         car.startEngine();
         carRepository.save(car);
         carNotificationService.notify(vin, CarEvent.STARTED);
+        metrics.recordCarEvent(CarEvent.STARTED);
     }
 
     public void stopCar(VehicleIdentificationNumber vin) throws NoSuchCarException {
@@ -55,5 +60,6 @@ public class CarApplicationService {
         car.stopEngine();
         carRepository.save(car);
         carNotificationService.notify(vin, CarEvent.STOPPED);
+        metrics.recordCarEvent(CarEvent.STOPPED);
     }
 }

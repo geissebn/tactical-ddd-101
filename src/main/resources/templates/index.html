@@ -57,12 +57,17 @@
     </div>
 </div>
 
-<footer class="fixed bottom-0 left-0 right-0 px-2">
-    <p>Watch with
-        <a class="underline"
-           href="https://www.hivemq.com/demos/websocket-client/?"
-           target="_blank">HiveMQ Websocket Client</a>
-    </p
-    ></footer>
+<footer class="fixed bottom-0 left-0 right-0 px-2 bg-indigo-200">
+    <ul class="flex gap-2">
+        <li><a class="hover:underline"
+               href="https://www.hivemq.com/demos/websocket-client/?"
+               target="_blank">MQTT Events</a>
+        </li>
+        <li><a class="hover:underline"
+               href="/actuator/prometheus"
+               target="_blank">Prometheus Metrics</a>
+        </li>
+    </ul>
+</footer>
 </body>
 </html>

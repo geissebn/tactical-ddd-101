@@ -1,6 +1,7 @@
 package com.github.geissebn.tacticalddd.application
 
 import com.github.geissebn.tacticalddd.Fixtures
+import com.github.geissebn.tacticalddd.metrics.CarMetrics
 import com.github.geissebn.tacticalddd.model.CarEvent
 import com.github.geissebn.tacticalddd.model.EngineState
 import spock.lang.Specification
@@ -9,9 +10,10 @@ import spock.lang.Subject
 class CarApplicationServiceTest extends Specification {
   CarRepository repo = Mock()
   CarNotificationService notificationService = Mock()
+  CarMetrics metrics = Mock()
 
   @Subject
-  CarApplicationService applicationService = new CarApplicationService(repo, notificationService)
+  CarApplicationService applicationService = new CarApplicationService(repo, notificationService, metrics)
 
 
   def 'should create a new car'() {
@@ -34,6 +36,7 @@ class CarApplicationServiceTest extends Specification {
     then:
     1 * notificationService.notify(car.vin, CarEvent.STARTED)
     1 * repo.save(car)
+    1 * metrics.recordCarEvent(CarEvent.STARTED)
     car.engineState == EngineState.RUNNING
   }
 
@@ -48,6 +51,7 @@ class CarApplicationServiceTest extends Specification {
     then:
     1 * notificationService.notify(car.vin, CarEvent.STOPPED)
     1 * repo.save(car)
+    1 * metrics.recordCarEvent(CarEvent.STOPPED)
     car.engineState == EngineState.STOPPED
   }
 
@@ -61,6 +65,7 @@ class CarApplicationServiceTest extends Specification {
     then:
     1 * repo.delete(vin) >> true
     1 * notificationService.notify(vin, CarEvent.DEMOLISHED)
+    1 * metrics.recordCarEvent(CarEvent.DEMOLISHED)
   }
 
   def 'should throw error when starting an unknown car'() {

@@ -55,4 +55,15 @@ class CarTest extends Specification {
     where:
     state << EngineState.values()
   }
+
+  def 'must not allow null as engine state'() {
+    given:
+    def car = Fixtures.car()
+
+    when:
+    car.engineState = null
+
+    then:
+    thrown NullPointerException.class
+  }
 }

@@ -41,11 +41,11 @@
                 <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                     <a type="button"
                        class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                       th:unless="${car.engineState.name() == 'RUNNING'}"
+                       th:if="${car.canStart()}"
                        th:href="|/action?action=start&vin=${car.vin.value}|">Start</a>
                     <a type="button"
                        class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                       th:unless="${car.engineState.name() == 'STOPPED'}"
+                       th:if="${car.canStop()}"
                        th:href="|/action?action=stop&vin=${car.vin.value}|">Stop</a>
                     <a type="button"
                        class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"

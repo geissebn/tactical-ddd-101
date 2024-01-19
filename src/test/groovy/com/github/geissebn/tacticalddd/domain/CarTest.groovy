@@ -3,6 +3,10 @@ package com.github.geissebn.tacticalddd.domain
 import com.github.geissebn.tacticalddd.Fixtures
 import spock.lang.Specification
 
+import static com.github.geissebn.tacticalddd.domain.EngineState.RUNNING
+import static com.github.geissebn.tacticalddd.domain.EngineState.STOPPED
+import static com.github.geissebn.tacticalddd.domain.EngineState.values
+
 class CarTest extends Specification {
 
   def 'can be created'() {
@@ -16,23 +20,33 @@ class CarTest extends Specification {
     then:
     car.vin == vin
     car.productionDate == productionDate
-    car.engineState == EngineState.STOPPED
+    car.engineState == STOPPED
   }
 
-  def 'can be started'() {
+  def 'starts when stopped'() {
     given:
-    def car = Fixtures.car([engineState: EngineState.STOPPED])
+    def car = Fixtures.car([engineState: STOPPED])
 
     when:
     car.startEngine()
 
     then:
-    car.engineState == EngineState.RUNNING
+    car.engineState == RUNNING
+  }
+
+  def 'can start in state #state'() {
+    expect:
+    Fixtures.car([engineState: state]).canStart() == expected
+
+    where:
+    state   | expected
+    STOPPED | true
+    RUNNING | false
   }
 
   def 'cannot be started twice'() {
     given:
-    def car = Fixtures.car([engineState: EngineState.RUNNING])
+    def car = Fixtures.car([engineState: RUNNING])
 
     when:
     car.startEngine()
@@ -42,7 +56,7 @@ class CarTest extends Specification {
 
   }
 
-  def 'can be stopped in state #state'() {
+  def 'stops in state #state'() {
     given:
     def car = Fixtures.car([engineState: state])
 
@@ -50,10 +64,20 @@ class CarTest extends Specification {
     car.stopEngine()
 
     then:
-    car.engineState == EngineState.STOPPED
+    car.engineState == STOPPED
 
     where:
-    state << EngineState.values()
+    state << values()
+  }
+
+  def 'can stop in state #state'() {
+    expect:
+    Fixtures.car([engineState: state]).canStop() == expected
+
+    where:
+    state   | expected
+    RUNNING | true
+    STOPPED | false
   }
 
   def 'must not allow null as engine state'() {

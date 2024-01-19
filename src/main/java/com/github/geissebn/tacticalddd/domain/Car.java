@@ -32,4 +32,12 @@ public class Car {
         LOG.info("Engine is stopped now");
         engineState = EngineState.STOPPED;
     }
+
+    public boolean canStart() {
+        return !EngineState.RUNNING.equals(engineState);
+    }
+
+    public boolean canStop() {
+        return !EngineState.STOPPED.equals(engineState);
+    }
 }

@@ -2,16 +2,16 @@ package com.github.geissebn.tacticalddd.adapter.primary.http;
 
 import com.github.geissebn.tacticalddd.application.CarApplicationService;
 import com.github.geissebn.tacticalddd.application.CarRepository;
-import com.github.geissebn.tacticalddd.application.NoSuchCarException;
 import com.github.geissebn.tacticalddd.domain.VehicleIdentificationNumber;
+import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.UUID;
 
@@ -32,34 +32,34 @@ public class CarController {
         return "index";
     }
 
-    @GetMapping("build")
-    public String build() {
-        inSubMdc(carApplicationService::buildNewCar);
-        return "redirect:/";
+    @HxRequest
+    @PostMapping("/car/new")
+    public String build(Model model) {
+        inSubMdc(() -> {
+            var car = carApplicationService.buildNewCar();
+            model.addAttribute("car", car);
+        });
+        return "car :: car-table-row";
     }
-
-    @GetMapping("action")
-    public String action(@RequestParam String action, @RequestParam("vin") UUID vinRaw) {
+    @HxRequest
+    @PostMapping("/car/{vinRaw}/{action}")
+    public String hxAction(@PathVariable String action, @PathVariable UUID vinRaw, Model model) {
         inSubMdc(() -> {
             MDC.put(MdcKey.VIN, vinRaw.toString());
             var vin = new VehicleIdentificationNumber(vinRaw);
-            switch (action) {
+            var car = switch (action) {
                 case "start":
-                    carApplicationService.startCar(vin);
-                    break;
+                    yield carApplicationService.startCar(vin);
                 case "stop":
-                    carApplicationService.stopCar(vin);
-                    break;
+                    yield carApplicationService.stopCar(vin);
                 case "demolish":
                     carApplicationService.demolishCar(vin);
-                    break;
-            }
+                    yield null;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + action);
+            };
+            model.addAttribute("car", car);
         });
-        return "redirect:/";
-    }
-
-    @ExceptionHandler({IllegalStateException.class, NoSuchCarException.class})
-    public String handleIllegalState() {
-        return "redirect:/";
+        return "car :: car-table-row";
     }
 }

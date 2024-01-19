@@ -18,6 +18,7 @@
     <spock-core.version>2.4-M1-groovy-4.0</spock-core.version>
     <groovy-all.version>4.0.16</groovy-all.version>
     <gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
+    <htmx-spring-boot.version>3.2.0</htmx-spring-boot.version>
   </properties>
 
   <dependencies>
@@ -81,6 +82,16 @@
       <groupId>io.micrometer</groupId>
       <artifactId>micrometer-registry-prometheus</artifactId>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.wimdeblauwe</groupId>
+      <artifactId>htmx-spring-boot-thymeleaf</artifactId>
+      <version>${htmx-spring-boot.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.wimdeblauwe</groupId>
+      <artifactId>htmx-spring-boot</artifactId>
+      <version>${htmx-spring-boot.version}</version>
     </dependency>
   </dependencies>
 

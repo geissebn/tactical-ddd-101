@@ -45,21 +45,23 @@ public class CarApplicationService {
         metrics.recordCarEvent(CarEvent.DEMOLISHED);
     }
 
-    public void startCar(VehicleIdentificationNumber vin) throws NoSuchCarException {
+    public Car startCar(VehicleIdentificationNumber vin) throws NoSuchCarException {
         LOG.info("Starting a car");
         var car = carRepository.find(vin).orElseThrow(() -> new NoSuchCarException(vin));
         car.startEngine();
         carRepository.save(car);
         carNotificationService.notify(vin, CarEvent.STARTED);
         metrics.recordCarEvent(CarEvent.STARTED);
+        return car;
     }
 
-    public void stopCar(VehicleIdentificationNumber vin) throws NoSuchCarException {
+    public Car stopCar(VehicleIdentificationNumber vin) throws NoSuchCarException {
         LOG.info("Stopping a car");
         var car = carRepository.find(vin).orElseThrow(() -> new NoSuchCarException(vin));
         car.stopEngine();
         carRepository.save(car);
         carNotificationService.notify(vin, CarEvent.STOPPED);
         metrics.recordCarEvent(CarEvent.STOPPED);
+        return car;
     }
 }

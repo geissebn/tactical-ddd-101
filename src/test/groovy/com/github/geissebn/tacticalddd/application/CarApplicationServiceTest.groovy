@@ -1,6 +1,7 @@
 package com.github.geissebn.tacticalddd.application
 
 import com.github.geissebn.tacticalddd.Fixtures
+import com.github.geissebn.tacticalddd.domain.Car
 import com.github.geissebn.tacticalddd.domain.CarEvent
 import com.github.geissebn.tacticalddd.domain.EngineState
 import com.github.geissebn.tacticalddd.metrics.CarMetrics
@@ -17,12 +18,18 @@ class CarApplicationServiceTest extends Specification {
 
 
   def 'should create a new car'() {
+    given:
+    def savedCar = null
+
     when:
-    applicationService.buildNewCar()
+    def returnedCar = applicationService.buildNewCar()
 
     then:
-    1 * repo.save(_)
+    1 * repo.save(_) >> { args ->
+      savedCar = args[0] as Car
+    }
     1 * notificationService.notify(_, CarEvent.CREATED)
+    returnedCar == savedCar
   }
 
   def 'should start a car'() {
@@ -31,13 +38,14 @@ class CarApplicationServiceTest extends Specification {
     repo.find(car.vin) >> Optional.of(car)
 
     when:
-    applicationService.startCar(car.vin)
+    def returnedCar = applicationService.startCar(car.vin)
 
     then:
     1 * notificationService.notify(car.vin, CarEvent.STARTED)
     1 * repo.save(car)
     1 * metrics.recordCarEvent(CarEvent.STARTED)
-    car.engineState == EngineState.RUNNING
+    returnedCar.engineState == EngineState.RUNNING
+    returnedCar == car
   }
 
   def 'should stop a car'() {
@@ -46,13 +54,14 @@ class CarApplicationServiceTest extends Specification {
     repo.find(car.vin) >> Optional.of(car)
 
     when:
-    applicationService.stopCar(car.vin)
+    def returnedCar = applicationService.stopCar(car.vin)
 
     then:
     1 * notificationService.notify(car.vin, CarEvent.STOPPED)
     1 * repo.save(car)
     1 * metrics.recordCarEvent(CarEvent.STOPPED)
-    car.engineState == EngineState.STOPPED
+    returnedCar.engineState == EngineState.STOPPED
+    returnedCar == car
   }
 
   def 'should demolish a car'() {

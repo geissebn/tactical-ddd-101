@@ -7,11 +7,12 @@
             th:text="${car.vin.value}"></td>
         <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500"
             th:text="${car.productionDate.value}"></td>
-        <td class="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-            <span th:if="${car.engineState.name() == 'RUNNING'}"
-                  th:text="${car.engineState.name()}"
-                  class="bg-green-100 text-green-800 px-2.5 py-0.5 rounded-full">state</span>
-            <span th:if="${car.engineState.name() == 'STOPPED'}"
+        <td th:switch="${car.engineState}"
+            class="whitespace-nowrap px-3 py-2 text-sm text-gray-500" >
+            <span th:case="${T(com.github.geissebn.tacticalddd.domain.EngineState).RUNNING}"
+              th:text="${car.engineState.name()}"
+              class="bg-green-100 text-green-800 px-2.5 py-0.5 rounded-full">state</span>
+            <span th:case="${T(com.github.geissebn.tacticalddd.domain.EngineState).STOPPED}"
                   th:text="${car.engineState.name()}"
                   class="bg-red-100 text-red-800 px-2.5 py-0.5 rounded-full">state</span>
         </td>
